@@ -2,21 +2,22 @@ from random import shuffle
 import string
 from DobbleCards import DobbleCards
 
-margid = ["A", "B", "C", "D", "E", "F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","Ü","Õ","Ä",
-           "Ö","X","Y","Z" ] + list(string.digits)
 
-margidNotShuffled = ["A", "B", "C", "D", "E", "F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","Ü","Õ","Ä",
-           "Ö","X","Y","Z" ] + list(string.digits)
+numberOfSymbols = 4             # sümbolite arv kaardil
+numberOfDecks   = 10            # kaardipakkide arv
 
+alphabet = "ABCDEFGHIJKLMNOPQRSTUVÜÕÄÖXYZ"
 
+# ainult eesti tähed
+for i in range(1,numberOfDecks):
+    d = DobbleCards(numberOfSymbols, list(alphabet), True)
+    d.createDeck()
+    fn = "output/ee_tahed_{}_symbolit_kaardil_{}.csv".format(numberOfSymbols,i)
+    d.saveAsCSV(fn,list(alphabet))
 
-def genereateCSV(numberOfSymbols,numberOfDecks,_symbols,_symbolsNotShuffled):
-    for i in range(1,numberOfDecks):
-        d = DobbleCards(numberOfSymbols, _symbols, True)
-        d.createDeck()
-        fn = "output/ee_tahed_ja_numbrid_{}_symbolit_kaardil_{}.csv".format(numberOfSymbols,i)
-        d.saveAsCSV(fn,_symbolsNotShuffled)
-
-
-
-genereateCSV(6,6,margid,margidNotShuffled)
+# eesti tähed ja numbrid
+for i in range(1,numberOfDecks):
+    d = DobbleCards(numberOfSymbols, list(alphabet)+list(string.digits), True)
+    d.createDeck()
+    fn = "output/ee_tahed_ja_numbrid_{}_symbolit_kaardil_{}.csv".format(numberOfSymbols,i)
+    d.saveAsCSV(fn,list(alphabet)+ list(string.digits))
